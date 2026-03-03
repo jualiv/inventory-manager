@@ -48,7 +48,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        // Pasamos el producto a una vista llamada 'edit'
+        return view('products.edit', compact('product'));
     }
 
     /**
@@ -56,7 +57,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        // Actualizamos con los nuevos datos del formulario
+        $product->update($request->all());
+
+        // Volvemos a la lista principal con un mensaje
+        return redirect()->route('products.index')->with('success', 'Producto actualizado');
     }
 
     /**

@@ -34,12 +34,19 @@
             <h2 class="text-lg font-semibold mb-4 text-gray-700">Productos en inventario</h2>
             <ul class="space-y-4">
                 @forelse ($productos as $producto)
-                    <li class="flex justify-between items-center p-4 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-sm transition">
-                        <div>
-                            <h3 class="font-bold text-gray-800">{{ $producto->name }}</h3>
-                            <p class="text-sm text-gray-500">{{ $producto->description }}</p>
-                            <span class="text-green-600 font-semibold">{{ $producto->price }}€</span>
-                        </div>
+                <li class="flex justify-between items-center p-4 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-sm transition">
+                    <div>
+                        <h3 class="font-bold text-gray-800">{{ $producto->name }}</h3>
+                        <p class="text-sm text-gray-500">{{ $producto->description }}</p>
+                        <span class="text-green-600 font-semibold">{{ $producto->price }}€</span>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <a href="{{ route('products.edit', $producto->id) }}" class="bg-yellow-100 text-yellow-600 hover:bg-yellow-600 hover:text-white p-2 rounded-full transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                            </svg>
+                        </a>
 
                         <form action="{{ route('products.destroy', $producto->id) }}" method="POST">
                             @csrf
@@ -50,7 +57,8 @@
                                 </svg>
                             </button>
                         </form>
-                    </li>
+                    </div>
+                </li>
                 @empty
                     <div class="text-center py-10 text-gray-400 font-light">
                         No hay productos registrados aún.
