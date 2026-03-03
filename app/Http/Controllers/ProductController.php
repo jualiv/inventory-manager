@@ -21,8 +21,7 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
-        Product::create($request->all());
-        return redirect()->back();
+
     }
 
     /**
@@ -30,7 +29,10 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+// 1. Guardamos los datos que vienen del formulario
+        Product::create($request->all());
+        // 2. Redirigimos a la página principal (index) para ver el nuevo producto
+        return redirect()->back();
     }
 
     /**
