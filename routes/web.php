@@ -1,18 +1,20 @@
 <?php
-use App\Http\Controllers\ProductController;
+
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-// La ruta principal
-Route::get('/', [ProductController::class, 'index'])->name('products.index');
+Route::get('/', function () {
+    return view('welcome');
+});
 
-// La ruta que recibe los datos del formulario (POST)
-Route::post('/productos', [ProductController::class, 'store'])->name('products.store');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// La ruta para borrar (DELETE)
-Route::delete('/productos/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-// Ruta para MOSTRAR el formulario de edición (GET)
-Route::get('/productos/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
-
-// Ruta para PROCESAR la actualización (PUT o PATCH)
-Route::put('/productos/{product}', [ProductController::class, 'update'])->name('products.update');
+require __DIR__.'/auth.php';
