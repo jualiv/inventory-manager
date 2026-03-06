@@ -24,4 +24,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Ruta para la página de prueba
+Route::get('/prueba', function () {
+    return view('pagina_prueba'); // // <--- AQUÍ se referencia al archivo. (no hace falta extension blade)
+})->middleware(['auth'])->name('pagina_prueba');//
+
 require __DIR__.'/auth.php';
