@@ -10,11 +10,23 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $productos = Product::all();
-        return view('products', compact('productos'));
-    }
+        // 1. Empezamos la consulta sin ejecutarla aún
+        $query = Product::query();
+
+        // 2. Si el usuario ha escrito algo en el input 'buscar'
+        if ($request->filled('buscar')) {
+            $termino = $request->buscar;
+            // El % sirve para buscar "que contenga" esa palabra
+            $query->where('name', 'LIKE', '%' . $termino . '%');
+        }
+
+        // 3. Ejecutamos la consulta y enviamos a la vista
+        $products = $query->get();
+
+        return view('products', compact('products'));
+}
 
     /**
      * Show the form for creating a new resource.
