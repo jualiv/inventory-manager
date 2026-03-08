@@ -6,7 +6,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 p-10">
-    <div class="py-4">
+   <div class="w-full flex justify-center py-4">
         <form action="{{ route('products.index') }}" method="GET" class="flex items-center gap-2">
             <input
                 type="text"
